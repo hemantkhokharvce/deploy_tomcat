@@ -1,0 +1,24 @@
+- name: stop server
+      notify:
+       - stop_tomcat
+
+  - name: backup of war file
+    copy:
+      src: "{{ dest_path }}/{{ artifact_id }}.war"
+      dest: "{{ backup_path }}"
+      remote_src: yes
+
+  - name: remove pervious war file
+    file: 
+      path: "{{ dest_path }}/{{ artifact_id }}.war" 
+      state: absent    
+
+  - name: Download war file
+    get_url:
+      url: "https://nexus.carot.com/content/repositories/releasehondaconnect/release_honda_connect/{{ artifact_id }}/{{ version }}/{{ artifact_id }}-{{ version }}.war"
+      dest: "{{ dest_path}}"
+      mode: 0755
+     
+  - name: start server
+      notify:
+       - start_tomcat   

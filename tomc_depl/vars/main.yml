@@ -1,0 +1,4 @@
+ vars:
+  - dest_path: /var/lib/tomcat7/webapps/ROOT/
+  - backup_path: /backup/
+  - user: tomcat
