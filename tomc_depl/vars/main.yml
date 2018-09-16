@@ -2,5 +2,5 @@
 
 dest_path: disk2/tomcat/webapps
 backup_path: disk2/tomcat/backup
-user: tomcat
+user: ubuntu
 service_name: tomcat    
