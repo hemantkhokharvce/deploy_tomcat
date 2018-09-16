@@ -1,6 +1,4 @@
   - name: start_tomcat
     service: name=tomcat7 state=started
 
-  - name: stop_tomcat
-    service: name=tomcat7 state=stoped
 

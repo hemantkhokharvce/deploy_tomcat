@@ -1,6 +1,5 @@
-- name: stop server
-      notify:
-       - stop_tomcat
+  - name: stop server
+    service: name=tomcat7 state=stoped
 
   - name: backup of war file
     copy:
