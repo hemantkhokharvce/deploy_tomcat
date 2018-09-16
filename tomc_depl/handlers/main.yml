@@ -1,4 +1,4 @@
   - name: start_tomcat
-    service: name=tomcat7 state=started
+    service: name={{ service_name }} state=started
 
 

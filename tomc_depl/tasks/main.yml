@@ -1,5 +1,5 @@
   - name: stop server
-    service: name=tomcat7 state=stoped
+    service: name={{ service_name }} state=stoped
 
   - name: backup of war file
     copy:
