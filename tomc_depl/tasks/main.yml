@@ -1,5 +1,5 @@
-  - name: stop server
-    service: name={{ service_name }} state=stoped
+# - name: stop server
+#    service: name={{ service_name }} state=stoped
 
   - name: backup of war file
     copy:
@@ -18,6 +18,6 @@
       dest: "{{ dest_path}}"
       mode: 0755
      
-  - name: start server
-      notify:
-       - start_tomcat   
+      #  - name: start server
+      # notify:
+      # - start_tomcat   
