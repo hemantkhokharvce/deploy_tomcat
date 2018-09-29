@@ -3,9 +3,17 @@
 
   - name: backup of war file
     copy:
+      src: "{{ dest_path }}/ROOT.war"
+      dest: "{{ backup_path }}"
+      remote_src: yes
+    when: ({{ artifact_id }} == "web_war" or {{ artifact_id }} == "das_war")
+    
+  - name: backup of war file
+    copy:
       src: "{{ dest_path }}/{{ artifact_id }}.war"
       dest: "{{ backup_path }}"
       remote_src: yes
+    when: ({{ artifact_id }} != "web_war" or {{ artifact_id }} != "das_war")
 
   - name: remove pervious war file
     file: 
@@ -14,8 +22,18 @@
 
   - name: Download war file
     get_url:
-      url: "https://nexus.carot.com/content/repositories/releasehondaconnect/release_honda_connect/{{ artifact_id }}/{{ version }}/{{ artifact_id }}-{{ version }}.war"
+      url: "https://nexus.carot.com/content/repositories/{{ repo_name }}/{{ artifact_ name }}/{{ artifact_id }}/{{ version }}/{{ artifact_id }}-{{ version }}.war"
+      dest: "{{ dest_path}}/ROOT.war"
+      mode: 0755
+    when: ({{ artifact_id }} == "web_war" or {{ artifact_id }} == "das_war") 
+    notify:
+     - start_tomcat
+     
+  - name: Download war file
+    get_url:
+      url: "https://nexus.carot.com/content/repositories/{{ repo_name }}/{{ artifact_ name }}/{{ artifact_id }}/{{ version }}/{{ artifact_id }}-{{ version }}.war"
       dest: "{{ dest_path}}/{{ artifact_id }}.war"
       mode: 0755
+    when: ({{ artifact_id }} != "web_war" or {{ artifact_id }} != "das_war") 
     notify:
      - start_tomcat   
