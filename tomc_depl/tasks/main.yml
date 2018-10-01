@@ -11,7 +11,7 @@
    
   - name: backup of war file
     copy:
-      src: "{{ dest_path }}/ROOT.war"
+      src: "{{ dest_path }}/{{ artifact_id }}.war"
       dest: "{{ backup_path }}"
       remote_src: yes
     when: ({{ artifact_id }} != "web_war" or {{ artifact_id }} != "das_war")
@@ -19,9 +19,9 @@
     
   - name: remove pervious war file
     file: 
-      path: "{{ dest_path }}/{{ artifact_id }}.war" 
+      path: "{{ dest_path }}/ROOT.war" 
       state: absent    
-    when: ({{ artifact_id }} != "web_war" or {{ artifact_id }} != "das_war")
+    when: ({{ artifact_id }} == "web_war" or {{ artifact_id }} == "das_war")
     ignore_errors: true
     
   - name: remove pervious war file
