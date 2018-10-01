@@ -7,19 +7,30 @@
       dest: "{{ backup_path }}"
       remote_src: yes
     when: ({{ artifact_id }} == "web_war" or {{ artifact_id }} == "das_war")
-    
+    ignore_errors: true    
+   
   - name: backup of war file
     copy:
-      src: "{{ dest_path }}/{{ artifact_id }}.war"
+      src: "{{ dest_path }}/ROOT.war"
       dest: "{{ backup_path }}"
       remote_src: yes
-    when: ({{ artifact_id }} != "web_war" or {{ artifact_id }} != "das_war")
-
+    when: ({{ artifact_id }} == "web_war" or {{ artifact_id }} == "das_war")
+    ignore_errors: true
+    
   - name: remove pervious war file
     file: 
       path: "{{ dest_path }}/{{ artifact_id }}.war" 
       state: absent    
-
+    when: ({{ artifact_id }} != "web_war" or {{ artifact_id }} != "das_war")
+    ignore_errors: true
+    
+  - name: remove pervious war file
+    file: 
+      path: "{{ dest_path }}/{{ artifact_id }}.war" 
+      state: absent    
+    when: ({{ artifact_id }} != "web_war" or {{ artifact_id }} != "das_war")
+    ignore_errors: true
+    
   - name: Download war file
     get_url:
       url: "https://nexus.carot.com/content/repositories/{{ repo_name }}/{{ artifact_ name }}/{{ artifact_id }}/{{ version }}/{{ artifact_id }}-{{ version }}.war"
